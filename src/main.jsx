@@ -10,7 +10,7 @@ import Login from './pages/Login';
 import AuthLayout from './components/authLayout';
 import { Signup } from './components/index.js';
 import AllPosts from './pages/AllPost';
-import AddPost from  './pages/addPost';
+import AddPost from './pages/AddPost';
 import Post from './pages/Post';
 import EditPost from './pages/editPost';
 
