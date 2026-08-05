@@ -26,10 +26,14 @@ export class AuthService{
     }
 
     loginWithGoogle() {
+    const origin = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:5173';
+    const successUrl = `${origin}/`;
+    const failureUrl = `${origin}/login`;
+
     return this.Account.createOAuth2Session(
       "google",
-      "http://localhost:5173/",
-      "http://localhost:5173/login"
+      successUrl,
+      failureUrl
     );
   }
 
