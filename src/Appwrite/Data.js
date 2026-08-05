@@ -109,7 +109,10 @@ export class DataService{
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
                 [
-                    Query.equal("status", "Active")
+                    Query.or([
+                        Query.equal("status", "active"),
+                        Query.equal("status", "Active")
+                    ])
                 ]
             );
             console.log("Posts fetched successfully:", posts);
@@ -123,11 +126,13 @@ export class DataService{
     //File Upload and Management
     async uploadFile(file, userId){
         try{
-            const permissions = [
-                Permission.read(Role.any()),
-                Permission.update(Role.user(userId)),
-                Permission.delete(Role.user(userId))
-            ];
+            const permissions = userId
+                ? [
+                    Permission.read(Role.any()),
+                    Permission.update(Role.user(userId)),
+                    Permission.delete(Role.user(userId))
+                ]
+                : [Permission.read(Role.any())];
 
             const x= await this.Bucket.createFile(
                 conf.appwriteBucketId,
@@ -159,15 +164,20 @@ export class DataService{
 
     async getPreview(fileId){
         try{
-            const x= await this.Bucket.getFilePreview(
+            return await this.Bucket.getFileView(
                 conf.appwriteBucketId,
                 fileId
             )
-            return x;
         }
         catch (error){
-            throw error;
-            return null;
+            try {
+                return await this.Bucket.getFilePreview(
+                    conf.appwriteBucketId,
+                    fileId
+                )
+            } catch (previewError) {
+                throw previewError;
+            }
         }
     }
 }
