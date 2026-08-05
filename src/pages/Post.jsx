@@ -40,10 +40,23 @@ export default function Post() {
     }, [slug, navigate]);
 
     const deletePost = async () => {
-        const status = await dataService.deletePost(post.$id);
-        if (status) {
-            await dataService.deleteFile(post.featuredImage);
-            navigate("/All-posts");
+        if (!post) return;
+
+        try {
+            await dataService.deletePost(post.$id);
+
+            if (post.featuredImage) {
+                try {
+                    await dataService.deleteFile(post.featuredImage);
+                } catch (error) {
+                    console.error("Failed to delete image:", error);
+                }
+            }
+
+            navigate("/my-posts");
+        } catch (error) {
+            console.error("Failed to delete post:", error);
+            alert("Failed to delete post. Please try again.");
         }
     };
 
