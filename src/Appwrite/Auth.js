@@ -27,8 +27,8 @@ export class AuthService{
 
     loginWithGoogle() {
     const origin = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:5173';
-    const successUrl = `${origin}/`;
-    const failureUrl = `${origin}/login`;
+    const successUrl = import.meta.env.VITE_APPWRITE_OAUTH_SUCCESS_URL || `${origin}/`;
+    const failureUrl = import.meta.env.VITE_APPWRITE_OAUTH_FAILURE_URL || `${origin}/login`;
 
     return this.Account.createOAuth2Session(
       "google",

@@ -22,8 +22,13 @@ function Signup() {
     }
   };
 
-  const handleGoogleLogin = () => {
-  authService.loginWithGoogle();
+  const handleGoogleLogin = async () => {
+    try {
+      await authService.loginWithGoogle();
+    } catch (error) {
+      setError("Google sign-in failed. Please try again.");
+      console.error("Google sign-in failed:", error);
+    }
   };
 
   return (
