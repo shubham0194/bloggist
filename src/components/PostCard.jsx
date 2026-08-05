@@ -12,7 +12,7 @@ function PostCard({ $id, title, featuredImage, status, slug }) {
 
     dataService.getPreview(featuredImage)
       .then((url) => {
-        setImgUrl(url + "&mode=admin");
+        setImgUrl(url);
       })
       .catch((error) => {
         console.error("Error fetching preview:", error);

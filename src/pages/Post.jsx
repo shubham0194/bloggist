@@ -27,7 +27,7 @@ export default function Post() {
 
                 if (postData.featuredImage) {
                     const url = await dataService.getPreview(postData.featuredImage);
-                    setImgUrl(url + "&mode=admin");
+                    setImgUrl(url);
                 }
 
             } catch (error) {

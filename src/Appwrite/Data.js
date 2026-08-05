@@ -121,12 +121,19 @@ export class DataService{
     }
 
     //File Upload and Management
-    async uploadFile(file){
+    async uploadFile(file, userId){
         try{
+            const permissions = [
+                Permission.read(Role.any()),
+                Permission.update(Role.user(userId)),
+                Permission.delete(Role.user(userId))
+            ];
+
             const x= await this.Bucket.createFile(
                 conf.appwriteBucketId,
                 ID.unique(),
-                file
+                file,
+                permissions
             )
            console.log("File uploaded successfully:", x);
             return x;

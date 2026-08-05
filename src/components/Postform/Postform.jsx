@@ -28,7 +28,7 @@ function Postform({ form }) {
     if (form && form.featuredImage && !preview) {
       dataService.getPreview(form.featuredImage)
         .then((url) => {
-          setEditImageUrl(url + "&mode=admin");
+          setEditImageUrl(url);
           console.log("Loaded image preview URL:", url);
         })
         .catch((error) => {
@@ -66,7 +66,7 @@ function Postform({ form }) {
       if (form) {
         // update
         const file = data.image?.[0] 
-          ? await dataService.uploadFile(data.image[0]) 
+          ? await dataService.uploadFile(data.image[0], userData?.$id) 
           : null;
 
         if (file) {
@@ -94,7 +94,7 @@ function Postform({ form }) {
           return;
         }
 
-        const file = await dataService.uploadFile(data.image[0]);
+        const file = await dataService.uploadFile(data.image[0], userData?.$id);
 
         if (file) {
           data.featuredImage = file.$id;
