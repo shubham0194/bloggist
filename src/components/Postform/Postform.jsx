@@ -101,6 +101,7 @@ function Postform({ form }) {
 
           const dbPost = await dataService.createPost({
             ...data,
+            authorName: userData.name || userData.email,
             userId: userData.$id
           });
 

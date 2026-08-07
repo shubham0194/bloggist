@@ -15,7 +15,7 @@ export class DataService{
         this.Bucket = new Storage(this.Client);
     }
 
-    async createPost({title,content,slug,featuredImage,status,userId}){
+    async createPost({title,content,slug,featuredImage,status,userId,authorName}){
         try{
             return await this.Databases.createDocument(
                 conf.appwriteDatabaseId,
@@ -26,7 +26,8 @@ export class DataService{
                     content,
                     featuredImage,
                     status,
-                    userId
+                    userId,
+                    authorName
                 },
                 // [
                 //     Permission.read(Role.user(userId)),
