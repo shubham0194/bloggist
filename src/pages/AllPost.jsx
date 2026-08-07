@@ -31,7 +31,7 @@ function AllPost() {
                 <Container>
                     <div className='flex flex-wrap gap-4'>
                         {posts.map((post) => (
-                            <PostCard $id={post.$id} title={post.title} featuredImage={post.featuredImage} status={post.status} slug="true"/>
+                            <PostCard $id={post.$id} title={post.title} featuredImage={post.featuredImage} status={post.status} slug="true" authorName={post.authorName} userId={post.userId}/>
                         ))}
                     </div>
                 </Container>

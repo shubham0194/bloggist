@@ -84,6 +84,8 @@ function Home() {
                                             title={post.title}
                                             featuredImage={post.featuredImage}
                                             status={post.status}
+                                            authorName={post.authorName}
+                                            userId={post.userId}
                                         />
                                     </div>
                                 ))}
