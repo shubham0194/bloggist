@@ -21,8 +21,17 @@ function Login() {
         dispatch(authLogin({ userData: serializeUser(userData) }));
         navigate("/");
       }
-    } catch (error) {
+    } catch {
       setError("Invalid email or password");
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      await authService.loginWithGoogle();
+    } catch {
+      setError("Google sign-in failed. Please try again.");
+      console.error("Google sign-in failed.");
     }
   };
 
@@ -65,6 +74,27 @@ function Login() {
             className="w-full py-3 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
           >
             Login
+          </button>
+
+          <div className="flex items-center gap-3">
+            <div className="flex-1 h-px bg-gray-300"></div>
+            <span className="text-sm text-gray-500">OR</span>
+            <div className="flex-1 h-px bg-gray-300"></div>
+          </div>
+
+          <button
+            type="button"
+            onClick={handleGoogleLogin}
+            className="w-full py-3 rounded-lg border border-gray-300 flex items-center justify-center gap-3 hover:bg-gray-50 transition"
+          >
+            <img
+              src="https://www.svgrepo.com/show/475656/google-color.svg"
+              alt="Google"
+              className="w-5 h-5"
+            />
+            <span className="font-medium text-gray-700">
+              Continue with Google
+            </span>
           </button>
 
         </form>
